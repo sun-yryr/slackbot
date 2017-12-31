@@ -1,1 +1,1 @@
-# bot
+# 3Jslackで活動しているbot
