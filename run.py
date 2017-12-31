@@ -4,7 +4,6 @@ import time, datetime
 import re
 import plugins.function as f
 import sys
-sys.path.append('..')
 import config
 
 class Slackclient():
@@ -12,6 +11,7 @@ class Slackclient():
     def __init__(self):
         self.slackclient = SlackClient(config.slack_token)
         if not self.slackclient.rtm_connect():
+            print "Not Connect"
             sys.exit()
     def reader(self):
         #readはdict型,SlackAPIの返り値
@@ -67,12 +67,13 @@ class Slackclient():
 
 SC = Slackclient()
 prog = re.compile("^!get\s(\S+)\s*(.*)")
-mention = re.compile("^<@U8211N9FW>\s(\S+)")
+mention = re.compile("^<@U8211N9FW>(\S+)")
 days = "0101"
 delTime = 300
 
 def main():
     read = SC.reader()
+    print read
     if read:
         #readがリストの場合があるがSlackclientで解決済み
         type = read.get("type")
