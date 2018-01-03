@@ -73,7 +73,6 @@ delTime = 300
 
 def main():
     read = SC.reader()
-    print read
     if read:
         #readがリストの場合があるがSlackclientで解決済み
         type = read.get("type")
