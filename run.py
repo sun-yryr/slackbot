@@ -104,6 +104,7 @@ def message(dict):
                 else:
                     msg = f.traininfo()
                     SC.sendMention(msg, True)
+            '''
             #実プロの提出状況
             elif "ktx" == cmd.group(1):
                 if re.compile(r'[0-4][0-9]').search(cmd.group(2)):
@@ -113,6 +114,7 @@ def message(dict):
                 else:
                     msg = ("出席番号を入力してください")
                 SC.sendMention(msg, True)
+            '''
             #日直
             elif "duty" == cmd.group(1):
                 msg = ("今週の日直は\n%sです" % f.touban(1))
@@ -158,7 +160,7 @@ def channelCreated(dict):
     SC.send(msg, "general", False, attachments)
 
 def oneday():
-    r = f.ktxDownload()
+    #r = f.ktxDownload()
     msg = ("今日は{}です。おはようございます。\n".format(now.strftime("%m月%d日(%a)")))
     """
     今日はm月d日(a)
@@ -197,6 +199,7 @@ def oneday():
                 "color":"#00FFFF"
             }
         attachments.append(tmp)
+    '''
     if r is None:
         text = "J科サイトに接続できません。ktxが最新でない場合があります。"
         tmp = {
@@ -205,6 +208,7 @@ def oneday():
                 "color":"#848484"
             }
         attachments.append(tmp)
+    '''
     SC.send(msg, "schedule", False, attachments)
 
 if __name__ == '__main__':
