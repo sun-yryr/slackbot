@@ -7,7 +7,7 @@ import os
     
 def touban(a):
     if a == "chenge":
-        msg = T.main()
+        T.main()
         return
     msg = T.m_print()
     #print -> slack.message
@@ -109,11 +109,22 @@ def ktx(usernumber):
     return retMsg
 
 def docomo(text, APIKEY):
-    url = "https://api.apigw.smt.docomo.ne.jp/dialogue/v1/dialogue"
-    payload = {"APIKEY": APIKEY}
+    url = "https://api.repl-ai.jp/v1/registration"
+    payload = {"x-api-key": APIKEY}
     body = {"utt": text}
     res = requests.post(url, params=payload, data=json.dumps(body))
     jsondata = json.loads(res.text)
     return jsondata["utt"]
+
+def weather():
+    url = "https://weather.yahoo.co.jp/weather/jp/13/4410/13201/1930942.html"
+    res = requests.get(url)
+    soup = BeautifulSoup(res.text, "html.parser")
+    body = soup.find_all("tr", align="center")
+    imgs = body[1].find_all("img")
+    for tmp in imgs:
+        img_url = tmp["src"]
+        print img_url
     
-ktxDownload()
+
+weather()

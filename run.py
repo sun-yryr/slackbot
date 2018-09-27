@@ -74,6 +74,7 @@ delTime = 300
 def main():
     read = SC.reader()
     if read:
+        print(read)
         #readがリストの場合があるがSlackclientで解決済み
         type = read.get("type")
         #type分岐[message]
@@ -84,13 +85,13 @@ def main():
         else:
             pass
 
-def message(dict):
+def message(SC_dict):
     #botによる返信を除外
-    if ("subtype" in dict.keys()) or ("U8211N9FW" in dict.values()):
+    if ("subtype" in SC_dict.keys()) or ("U8211N9FW" in SC_dict.values()):
         pass
     else:
         #正規表現による!getとのマッチ
-        cmd = prog.match(dict["text"])
+        cmd = prog.match(SC_dict["text"])
         msg = ""
         if cmd is not None:
             #運行状況
@@ -118,7 +119,7 @@ def message(dict):
                 SC.sendMention(msg, True)
             #変数変更(管理者用)
             elif "set" == cmd.group(1):
-                if "U30T49610" == dict["user"]:
+                if "U30T49610" == SC_dict["user"]:
                     list = cmd.group(2).split(":")
                     if "deletetime" == list[0]:
                         global delTime
@@ -133,14 +134,15 @@ def message(dict):
                 SC.sendMention(msg, True)
         else:
             #メンションが来た時
-            cmd = mention.match(dict["text"])
+            cmd = mention.match(SC_dict["text"])
             if cmd is not None:
                 #ドコモの人工知能に返信を任せる
                 msg = f.docomo(cmd.group(1), config.docomo_apikey)
                 SC.sendMention(msg, False)
+            SC.send(SC_dict, "yryr", True)
 
-def channelCreated(dict):
-    chdata = dict["channel"]
+def channelCreated(SC_dict):
+    chdata = SC_dict["channel"]
     msg = "channelが作成されました。"
     attachments = [{
             "text": chdata["name"],
