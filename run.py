@@ -148,7 +148,7 @@ def channelCreated(SC_dict):
             "text": chdata["name"],
             "color":"#00FF00"
             }]
-    SC.send(msg, "general", False, attachments)
+    SC.send(msg, "random", False, attachments)
 
 def oneday():
     #r = f.ktxDownload()
