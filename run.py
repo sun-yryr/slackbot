@@ -146,7 +146,7 @@ def channelCreated(dict):
             "text": chdata["name"],
             "color":"#00FF00"
             }]
-    SC.send(msg, "general", False, attachments)
+    SC.send(msg, "random", False, attachments)
 
 def oneday():
     #r = f.ktxDownload()
@@ -207,7 +207,7 @@ if __name__ == '__main__':
         now = datetime.datetime.now()
         #今日初めてかつ、6時代の時oneday実行
         if (now.strftime("%m%d")!= days) and (now.strftime("%H")== "06"):
-            oneday()
+            #oneday()
             days = now.strftime("%m%d")
         main()
         #ここ削除
